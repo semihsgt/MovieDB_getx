@@ -1,0 +1,87 @@
+import 'package:flutter/material.dart';
+import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:moviedb_org/pages/details.dart';
+import 'package:moviedb_org/pages/library/library_controller.dart';
+import 'package:moviedb_org/reusable_widgets/movie_card.dart';
+
+class FavoritesPage extends StatefulWidget {
+  const FavoritesPage({super.key});
+
+  @override
+  State<FavoritesPage> createState() => _FavoritesPageState();
+}
+
+class _FavoritesPageState extends State<FavoritesPage> {
+  
+  @override
+  Widget build(BuildContext context) {
+    return GetBuilder<LibraryPageController>(
+      builder: (controller) {
+        final movList = controller.favoriteList;
+
+        if (controller.isFavoritesLoading) {
+          return const Center(child: CircularProgressIndicator());
+        }
+
+        if (movList == null) {
+          return const Center(
+            child: Text(
+              "Something went wrong.\nPlease try again later.",
+              textAlign: TextAlign.center,
+            ),
+          );
+        }
+
+        if (movList.isEmpty) {
+          return const Center(
+            child: Text(
+              "You don't have any movies\non your favorites list!",
+              textAlign: TextAlign.center,
+            ),
+          );
+        }
+
+        return GridView.builder(
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            childAspectRatio: 0.7,
+          ),
+          itemCount: movList.length,
+          itemBuilder: (context, index) {
+            final mp = movList[index];
+            return Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => DetailsPage(movieId: mp.id),
+                    ),
+                  );
+                },
+                child: MovieCard(
+                  mp: mp,
+                  pressedFavoriteButton: () {
+                    controller.addOrRemoveFavorites(
+                      mediaId: mp.id,
+                      isFavorite: mp.isFavorite ? false : true,
+                    );
+                    controller.getFavoritesList();
+                  },
+                  pressedWatchlistButton: () {
+                    controller.addOrRemoveWatchlist(
+                      mediaId: mp.id,
+                      isInWatchlist: mp.isInWatchlist ? false : true,
+                    );
+                    controller.getWatchlist();
+                  },
+                ),
+              ),
+            );
+          },
+        );
+      },
+    );
+  }
+}
