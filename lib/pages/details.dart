@@ -19,13 +19,21 @@ class _DetailsPageState extends State<DetailsPage> {
     return GetBuilder<DetailsPageController>(
       init: DetailsPageController(
         movieId: widget.movieId ?? 0,
-        context: context,
       ),
       builder: (controller) {
         final movie = controller.movie;
 
         if (controller.isLoading) {
-          return const Center(child: CircularProgressIndicator());
+          return Scaffold(
+            appBar: AppBar(
+              backgroundColor: Color(0xFFE05A2B),
+              title: Text(
+                "Movie Details",
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+            ),
+            body: const Center(child: CircularProgressIndicator()),
+          );
         }
 
         if (movie == null) {
@@ -74,23 +82,13 @@ class _DetailsPageState extends State<DetailsPage> {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  '\n${movie.title ?? ""}\n',
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 20,
-                                  ),
-                                  textAlign: TextAlign.center,
-                                ),
-                                IconButton(
-                                  color: Colors.white,
-                                  onPressed: () {},
-                                  icon: Icon(Icons.favorite_border),
-                                ),
-                              ],
+                            Text(
+                              '\n${movie.title ?? ""}\n',
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20,
+                              ),
+                              textAlign: TextAlign.start,
                             ),
                             Text("Describtion : \n\n${movie.overview}"),
                             Text("\nRelease Date : ${movie.releaseDate}"),

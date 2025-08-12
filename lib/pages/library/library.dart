@@ -29,52 +29,42 @@ class _LibraryPageState extends State<LibraryPage> with SingleTickerProviderStat
           child: Scaffold(
             appBar: AppBar(
               backgroundColor: Color(0xFFE05A2B),
-              title: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.asset(
-                    '/Users/semihsogut/StudioProjects/Flutter/moviedb_getx/assets/images/app_icon_deleted_background.png',
-                    height: 45,
-                  ),
-                  Text(
-                    "MovieDB",
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                ],
-              ),
-              bottom: TabBar(
-                onTap: (value) {
-                  if(value == 1) {
-                    controller.getWatchlist();
-                  }
-                },
-                controller: controller.tabController,
-                indicatorColor: Colors.white,
-                labelColor: Colors.white,
-                indicatorWeight: 5,
-                tabs: [
-                  Tab(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(Icons.favorite),
-                        SizedBox(width: 5),
-                        Text('Favorites'),
-                      ],
+              title: TabBar(
+                  onTap: (value) {
+                    if(value == 0) {
+                      controller.getFavoritesList();
+                    }
+                    if(value == 1) {
+                      controller.getWatchlist();
+                    }
+                  },
+                  controller: controller.tabController,
+                  indicatorColor: Colors.white,
+                  labelColor: Colors.white,
+                  indicatorWeight: 12,
+                  tabs: [
+                    Tab(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.favorite),
+                          SizedBox(width: 5),
+                          Text('Favorites'),
+                        ],
+                      ),
                     ),
-                  ),
-                  Tab(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(Icons.watch_later),
-                        SizedBox(width: 5),
-                        Text('Watchlist'),
-                      ],
+                    Tab(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.watch_later),
+                          SizedBox(width: 5),
+                          Text('Watchlist'),
+                        ],
+                      ),
                     ),
-                  ),
-                ],
-              ),
+                  ],
+                ),
             ),
             body: TabBarView(
               controller: controller.tabController,

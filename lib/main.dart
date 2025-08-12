@@ -53,9 +53,13 @@ class _MyHomePageState extends State<MyHomePage> {
             ],
             onTap: (index) {
               controller.changeIndex(index);
+              if (index == 0) {
+                final explorePageController = Get.find<ExplorePageController>();
+                explorePageController.getMovies();
+              }
               if (index == 1) {
                 final libraryPageController = Get.find<LibraryPageController>();
-                libraryPageController.getFavoritesList();
+                libraryPageController.getMovies();
               }
             },
           ),
