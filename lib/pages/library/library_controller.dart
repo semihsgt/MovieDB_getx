@@ -100,7 +100,7 @@ class LibraryPageController extends GetxController {
       final movie = movieList?.firstWhere((m) => m.id == mediaId);
       if (movie != null) {
         movie.isFavorite = false;
-        update();
+        await getFavoritesList();
       }
     } else {
       print("Error: ${response.statusCode} - ${response.body}");
@@ -134,7 +134,7 @@ class LibraryPageController extends GetxController {
       final movie = movieList?.firstWhere((m) => m.id == mediaId);
       if (movie != null) {
         movie.isInWatchlist = false;
-        update();
+        await getWatchlist();
       }
     } else {
       print("Error: ${response.statusCode} - ${response.body}");
