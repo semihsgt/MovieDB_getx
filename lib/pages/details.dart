@@ -17,9 +17,7 @@ class _DetailsPageState extends State<DetailsPage> {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<DetailsPageController>(
-      init: DetailsPageController(
-        movieId: widget.movieId ?? 0,
-      ),
+      init: DetailsPageController(movieId: widget.movieId ?? 0),
       builder: (controller) {
         final movie = controller.movie;
 

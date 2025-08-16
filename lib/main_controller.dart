@@ -4,10 +4,7 @@ import 'package:moviedb_org/pages/explore.dart';
 
 class MyHomePageController extends GetxController {
   int selectedIndex = 0;
-  List pageList = [
-    ExplorePage(),
-    LibraryPage(),
-  ];
+  List pageList = [ExplorePage(), LibraryPage()];
 
   void changeIndex(int index) {
     selectedIndex = index;

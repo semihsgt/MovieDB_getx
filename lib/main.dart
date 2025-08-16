@@ -8,7 +8,7 @@ void main() {
   Get.put(ExplorePageController(), permanent: true);
   Get.put(LibraryPageController(), permanent: true);
   Get.put(MyHomePageController(), permanent: true);
-  
+
   runApp(const MyApp());
 }
 
@@ -55,11 +55,11 @@ class _MyHomePageState extends State<MyHomePage> {
               controller.changeIndex(index);
               if (index == 0) {
                 final explorePageController = Get.find<ExplorePageController>();
-                explorePageController.getMovies();
+                explorePageController.getMovies(hideLoading: true);
               }
               if (index == 1) {
                 final libraryPageController = Get.find<LibraryPageController>();
-                libraryPageController.getMovies();
+                libraryPageController.getFavoritesList(hideLoading: true);
               }
             },
           ),
